@@ -14,7 +14,7 @@
     * Acá se define la función sys_getproc(), la cual será la función de sistema que llama a getprocs 
     ```C
     int sys_getprocs(void){
-    return getprocs();
+      return getprocs();
     }
     ```
 * usys.S
