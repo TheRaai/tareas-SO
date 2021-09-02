@@ -311,6 +311,19 @@ wait(void)
   }
 }
 
+uint
+numtickets(int nice)
+{
+  int tickets = 1;
+  int i;
+  for (i = 0; i < nice; i++) {
+    tickets = tickets * 2;
+  }
+  return tickets;
+  
+  // return nice + 1; // simple implementation
+}
+
 //PAGEBREAK: 42
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
@@ -332,10 +345,16 @@ scheduler(void)
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
+    uint total = 1000;
+    int counter = 0;
+    int winner = randomrange(1,total);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
-
+      int nice = p->num_tickets;
+      counter += numtickets(nice);
+      if (counter < winner)
+        continue;
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
@@ -531,21 +550,4 @@ procdump(void)
     }
     cprintf("\n");
   }
-}
-
-int getprocs(void){
-  struct proc *p;
-  int count = 0;
-
-  acquire(&ptable.lock);
-
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-     if(p->state != UNUSED)
-        count++;
-  }
-
-  release(&ptable.lock);
-
- return count;
 }
