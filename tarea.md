@@ -9,18 +9,18 @@
 * defs.h
     * Acá se define ```int getprocs(void); ``` para definir la función de getprocs que luego será puesta en procs.c
 * user.h
-    * Acá se agrega getprocs como una system call
+    * Acá se agrega getprocs como una system call ````int getprocs(void);````
 * sysproc.c
     * Acá se define la función sys_getproc(), la cual será la función de sistema que llama a getprocs 
     ```C
     int sys_getprocs(void){
-    return getprocs();
+      return getprocs();
     }
     ```
 * usys.S
     * Se define un ````SYSCALL(getprocs)```` 
 * syscall.c
-    * Se define sys_getprocs de tipo SYS_getprocs y como un extern int para que funcione al llamarse dentro del sistema
+    * Se define sys_getprocs de tipo SYS_getprocs ````[SYS_getprocs]   sys_getprocs,```` y como un extern int  ````extern int sys_getprocs(void);```` para que funcione al llamarse dentro del sistema
 * proc.c
     * Acá se crea la función principal, que trae el código que hace que funcione getprocs
     ````C
