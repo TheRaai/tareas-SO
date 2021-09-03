@@ -93,3 +93,7 @@ sys_uptime(void)
 int sys_random(void){
   return random();
 }
+
+int sys_lotterytest(void){
+  return lotterytest();
+}

@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -333,28 +334,27 @@ numtickets(int nice)
 //  - eventually that process transfers control
 //      via swtch back to the scheduler.
 void
-scheduler(void)
-{
-  struct proc *p;
+scheduler(void){
+struct proc *p;
   struct cpu *c = mycpu();
   c->proc = 0;
-  
-  for(;;){
+
+	for(;;){
     // Enable interrupts on this processor.
     sti();
 
-    // Loop over process table looking for process to run.
+// Loop over process table looking for process to run.
     acquire(&ptable.lock);
     uint total = 1000;
     int counter = 0;
-    int winner = randomrange(1,total);
+    int  winner = randomrange(1,total);
+    //lotery(counter,winner);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
-      int nice = p->num_tickets;
-      counter += numtickets(nice);
-      if (counter < winner)
-        continue;
+   	  if ((counter + p->num_tickets) < winner){
+	      counter += p->num_tickets;
+	    }
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
@@ -550,4 +550,36 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+
+int lotterytest(void){
+  //printf(1, "lottery test 2\n");
+
+  // fork into 20 processes with different niceness values.
+  int pid;
+
+  int i;
+  for (i = 20; i >= 0; i--) {
+    pid = fork();
+    if (pid == 0) {
+      int count = 0;
+      int laps = 0;
+      while(1) {
+        // since prints are expensive, only print after X iterations
+        count++;
+        if (count > 10000) {
+          laps++;
+          count = 0;
+
+          //printf(1, "%d\n", i);
+        }
+
+
+      }
+      return count;
+    }   
+  }
+
+  while(1) {}
+  return i;
 }
