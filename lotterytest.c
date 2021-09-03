@@ -10,5 +10,7 @@
 
 int main(int argc, char *argv[])
 {
+    int counter = lotterytest();
+    printf(1,"%d",counter);
     exit();
 }

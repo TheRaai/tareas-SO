@@ -553,33 +553,21 @@ procdump(void)
 }
 
 int lotterytest(void){
-  //printf(1, "lottery test 2\n");
+	struct proc *p;
+	int process = fork();
+	int winner = 10000;
+	acquire(&ptable.lock);
+	 p = ptable.proc;
+	int ticket = p[process].num_tickets;
+	//printf ("número de ticket:", ticket)
 
-  // fork into 20 processes with different niceness values.
-  int pid;
-
-  int i;
-  for (i = 20; i >= 0; i--) {
-    pid = fork();
-    if (pid == 0) {
-      int count = 0;
-      int laps = 0;
-      while(1) {
-        // since prints are expensive, only print after X iterations
-        count++;
-        if (count > 10000) {
-          laps++;
-          count = 0;
-
-          //printf(1, "%d\n", i);
-        }
-
-
-      }
-      return count;
-    }   
+  if (ticket < winner){	
+    winner = ticket;
   }
-
-  while(1) {}
-  return i;
+  //siguiente ticket
+  else{
+    //printf("Ganador:", winner);
+  }
+	release(&ptable.lock);
+  return winner;
 }
