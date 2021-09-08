@@ -1,4 +1,4 @@
-# Tarea 1 Sistemas operativos
+# Tarea 2 Sistemas operativos
 ## Integrantes:
 * Raimundo Moraga
 * Romina Beretta
