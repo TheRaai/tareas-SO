@@ -553,21 +553,5 @@ procdump(void)
 }
 
 int lotterytest(void){
-	struct proc *p;
-	int process = fork();
-	int winner = 10000;
-	acquire(&ptable.lock);
-	 p = ptable.proc;
-	int ticket = p[process].num_tickets;
-	//printf ("número de ticket:", ticket)
 
-  if (ticket < winner){	
-    winner = ticket;
-  }
-  //siguiente ticket
-  else{
-    //printf("Ganador:", winner);
-  }
-	release(&ptable.lock);
-  return winner;
 }
