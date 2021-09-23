@@ -123,7 +123,7 @@ int main(void) {
     temp=temp->next;
   }
   argumentos b[100];
-  node head2 = {0,0};
+  node head2 = {0,0,PTHREAD_MUTEX_INITIALIZER};
   pthread_t p;
   for(int i =1;i<100;i++){
     //pthread_mutex_init(&b[i].ListHead->lock,0);
