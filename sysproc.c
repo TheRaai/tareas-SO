@@ -97,3 +97,7 @@ int sys_random(void){
 int sys_lotterytest(void){
   return lotterytest();
 }
+
+int sys_traductor(void){
+  return traductor();
+}

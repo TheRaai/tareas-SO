@@ -553,5 +553,9 @@ procdump(void)
 }
 
 int lotterytest(void){
+  return 0;
+}
 
+int traductor(void){
+  return 0;
 }
