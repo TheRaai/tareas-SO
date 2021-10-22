@@ -121,7 +121,7 @@ int             wait(void);
 void            wakeup(void*);
 void            yield(void);
 int             lotterytest(void);
-int             traductor(void);
+int             traductor(char* virtual_address);
 // swtch.S
 void            swtch(struct context**, struct context*);
 

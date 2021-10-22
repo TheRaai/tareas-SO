@@ -98,6 +98,10 @@ int sys_lotterytest(void){
   return lotterytest();
 }
 
-int sys_traductor(void){
-  return traductor();
+char*
+sys_traductor(char *s)
+{
+  argstr(0, &s);
+  traductor(s);
+  return s;
 }

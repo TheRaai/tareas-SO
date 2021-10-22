@@ -25,7 +25,7 @@ int sleep(int);
 int uptime(void);
 uint random(void);
 int lotterytest(void);
-int traductor(void);
+int traductor(char* virtual_address);
 
 // ulib.c
 int stat(const char*, struct stat*);

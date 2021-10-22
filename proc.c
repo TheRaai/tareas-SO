@@ -556,6 +556,27 @@ int lotterytest(void){
   return 0;
 }
 
-int traductor(void){
+int traductor(char* virtual_address){
+  char* paddr;
+  pde_t *pgdir,*pgtab,*pde,*pte;
+  struct proc *curproc = myproc();
+
+  pgdir = curproc->pgdir;
+  pde = &pgdir[PDX(virtual_address)];
+  cprintf("%p\n",pde);
+
+  if(*pde & PTE_P){
+    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
+  }
+  else{
+    cprintf("Direccion invalida\n");
+    return -1;
+  }
+
+  pte = &pgtab[PTX(virtual_address)];
+  paddr = (char*)P2V(PTE_ADDR(*pte));
+  cprintf("%d\n",paddr);
+  cprintf("Direccion fisica dada: %s\n",paddr);
+
   return 0;
 }
