@@ -558,12 +558,14 @@ int lotterytest(void){
 
 int traductor(char* virtual_address){
   char* paddr;
+  int pad;
   pde_t *pgdir,*pgtab,*pde,*pte;
+  //struct proc *p = ptable.proc;
   struct proc *curproc = myproc();
-
+  
   pgdir = curproc->pgdir;
   pde = &pgdir[PDX(virtual_address)];
-  cprintf("%p\n",pde);
+  cprintf("Pde: %p\n",pde);
 
   if(*pde & PTE_P){
     pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
@@ -574,8 +576,9 @@ int traductor(char* virtual_address){
   }
 
   pte = &pgtab[PTX(virtual_address)];
-  paddr = (char*)V2P(PTE_ADDR(*pte));
-  cprintf("%d\n",paddr);
+  paddr = (char*)P2V(PTE_ADDR(*pte));
+  pad = (PTE_ADDR(*pte));
+  cprintf("Direccion fisica: %d\n",pad);
   cprintf("Direccion fisica dada: %p\n",paddr);
 
   return 0;
