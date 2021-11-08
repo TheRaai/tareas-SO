@@ -576,7 +576,7 @@ int traductor(char* virtual_address){
   }
 
   pte = &pgtab[PTX(virtual_address)];
-  paddr = (char*)P2V(PTE_ADDR(*pte));
+  paddr = (char*)V2P(PTE_ADDR(*pte));
   pad = (PTE_ADDR(*pte));
   cprintf("Direccion fisica: %d\n",pad);
   cprintf("Direccion fisica dada: %p\n",paddr);
